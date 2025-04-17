@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 
 class ColorStream {
@@ -9,16 +10,15 @@ class ColorStream {
     Colors.teal,
     Colors.pink,
     Colors.pinkAccent,
-    Colors.deepPurpleAccent,
-    Color(0xFFFFC0CB), 
-    Color(0xFFFF69B4)
+    Colors.deepOrangeAccent,
+    Colors.purpleAccent,
+    Colors.redAccent,
   ];
 
   Stream<Color> getColors() async* {
-  yield* Stream.periodic(
-    const Duration(seconds: 1), (int t) {
-    int index = t % colors.length;
-    return colors[index];
-  });
+    for (Color color in colors) {
+      await Future.delayed(const Duration(seconds: 1));
+      yield color;
+    }
   }
 }

@@ -38,14 +38,12 @@ class _StreamHomePageState extends State<StreamHomePage> {
     changeColor();
   }
 
-  Future<void> changeColor() async {
-    // Simulasi stream delay antar warna (jika belum ada di class ColorStream)
-    for (var eventColor in colorStream.colors) {
-      await Future.delayed(const Duration(seconds: 1)); // simulasi delay
+  void changeColor() {
+    colorStream.getColors().listen((eventColor) {
       setState(() {
         bgColor = eventColor;
       });
-    }
+    });
   }
 
   @override
@@ -54,15 +52,8 @@ class _StreamHomePageState extends State<StreamHomePage> {
       appBar: AppBar(
         title: const Text('Stream'),
       ),
-      body: AnimatedContainer(
-        duration: const Duration(milliseconds: 500),
+      body: Container(
         color: bgColor,
-        child: const Center(
-          child: Text(
-            'Streaming Colors...',
-            style: TextStyle(fontSize: 24, color: Colors.white),
-          ),
-        ),
       ),
     );
   }
