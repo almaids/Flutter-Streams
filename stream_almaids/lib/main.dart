@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'stream.dart';
 
-void main(){
+void main() {
   runApp(const MyApp());
 }
 
@@ -27,8 +28,42 @@ class StreamHomePage extends StatefulWidget {
 }
 
 class _StreamHomePageState extends State<StreamHomePage> {
+  Color bgColor = Colors.blueGrey;
+  late ColorStream colorStream;
+
+  @override
+  void initState() {
+    super.initState();
+    colorStream = ColorStream();
+    changeColor();
+  }
+
+  Future<void> changeColor() async {
+    // Simulasi stream delay antar warna (jika belum ada di class ColorStream)
+    for (var eventColor in colorStream.colors) {
+      await Future.delayed(const Duration(seconds: 1)); // simulasi delay
+      setState(() {
+        bgColor = eventColor;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Stream'),
+      ),
+      body: AnimatedContainer(
+        duration: const Duration(milliseconds: 500),
+        color: bgColor,
+        child: const Center(
+          child: Text(
+            'Streaming Colors...',
+            style: TextStyle(fontSize: 24, color: Colors.white),
+          ),
+        ),
+      ),
+    );
   }
 }
