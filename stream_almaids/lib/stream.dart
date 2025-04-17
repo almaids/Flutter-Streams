@@ -13,4 +13,12 @@ class ColorStream {
     Color(0xFFFFC0CB), 
     Color(0xFFFF69B4)
   ];
+
+  Stream<Color> getColors() async* {
+  yield* Stream.periodic(
+    const Duration(seconds: 1), (int t) {
+    int index = t % colors.length;
+    return colors[index];
+  });
+  }
 }
