@@ -12,5 +12,17 @@
     - listen() memungkinkan kita untuk menetapkan callback yang akan dieksekusi setiap kali data baru masuk ke dalam stream. Ini cocok untuk kasus real-time dan memberikan kontrol lebih seperti onDone dan onError.
     - await for digunakan dalam fungsi async dan akan menunggu setiap data baru satu per satu sebelum melanjutkan eksekusi berikutnya. Cocok untuk alur yang lebih linear dan sinkron.
 
+---
+
+## Praktikum 2 - Stream Controllers dan Sinks
+- **Jelaskan maksud kode langkah 8 dan 10 tersebut!**
+  - Pada langkah ke-8, initState() digunakan untuk memulai stream dan mendengarkan data yang masuk dengan menggunakan metode listen(). Hal ini memastikan bahwa setiap angka acak yang dikirimkan melalui sink dapat diterima oleh subscriber. Langkah ke-10 berisi fungsi addRandomNumber() yang bertugas menghasilkan angka acak dan mengirimkannya ke stream melalui sink.
+- **Capture hasil praktikum Anda berupa GIF dan lampirkan di README.**
+  ![soal 6](https://github.com/user-attachments/assets/01f2c604-e63c-4cc6-ab47-2b47af9ed077)
+- **Jelaskan maksud kode langkah 13 sampai 15 tersebut!**
+  - Langkah 13 hingga 15 menjelaskan cara menambahkan dan menangani error pada stream. Metode addErrorToSink() digunakan untuk menyisipkan error secara manual ke dalam stream. Kemudian, onError ditambahkan dalam parameter listen() agar error yang terjadi dapat ditangani tanpa menghentikan aplikasi. Langkah ini penting sebagai bagian dari pengelolaan aliran data secara aman dan efektif.
+
+
+
 
 
