@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'stream.dart';
+import 'dart:async';
+import 'dart:math';
 
 void main() {
   runApp(const MyApp());
@@ -31,9 +33,22 @@ class _StreamHomePageState extends State<StreamHomePage> {
   Color bgColor = Colors.blueGrey;
   late ColorStream colorStream;
 
+  int lastNumber = 0;
+  late StreamController<int> numberStreamController;
+  late NumberStream numberStream;
+
   @override
   void initState() {
     super.initState();
+    numberStream = NumberStream();
+    numberStreamController = numberStream.controller;
+    Stream<int> stream = numberStreamController.stream;
+    stream.listen((event) {
+      setState(() {
+        lastNumber = event;
+      });
+    });
+    
     colorStream = ColorStream();
     changeColor();
   }
@@ -52,14 +67,38 @@ class _StreamHomePageState extends State<StreamHomePage> {
     });
   }
 
+  void addRandomNumber() {
+    numberStream.addRandomNumber();
+  }
+
+  @override
+  void dispose() {
+    numberStreamController.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Stream - Almaids'),
       ),
-      body: Container(
-        decoration: BoxDecoration(color: bgColor),
-        ));
+      backgroundColor: bgColor,
+      body: SizedBox(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(lastNumber.toString(), 
+                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            ElevatedButton(
+              onPressed: () => addRandomNumber(),
+              child: const Text('New Random Number'),
+            )
+          ],
+        ),
+      )
+    );
   }
 }
