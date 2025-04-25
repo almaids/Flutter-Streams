@@ -37,12 +37,17 @@ class _StreamHomePageState extends State<StreamHomePage> {
   late StreamController<int> numberStreamController;
   late NumberStream numberStream;
 
+  late StreamTransformer<int, int> transformer;
+
   @override
   void initState() {
     super.initState();
+
     numberStream = NumberStream();
     numberStreamController = numberStream.controller;
-    Stream<int> stream = numberStreamController.stream;
+
+    Stream<int> stream = numberStreamController.stream.asBroadcastStream();
+
     stream.listen((event) {
       setState(() {
         lastNumber = event;
@@ -52,18 +57,34 @@ class _StreamHomePageState extends State<StreamHomePage> {
         lastNumber = -1;
       });
     });
-    
+
+    transformer = StreamTransformer<int, int>.fromHandlers(
+      handleData: (value, sink) {
+        sink.add(value * 10);
+      },
+      handleError: (error, trace, sink) {
+        sink.add(-1);
+      },
+      handleDone: (sink) => sink.close(),
+    );
+
+    stream.transform(transformer).listen((event) {
+      setState(() {
+        lastNumber = event;
+      });
+    }).onError((error) {
+      setState(() {
+        lastNumber = -1;
+      });
+    });
+
+    // 🔄 Warna background stream
     colorStream = ColorStream();
     changeColor();
   }
 
-  void changeColor() async {
-    //await for (var eventColor in colorStream.getColors()) {
-    //  setState(() {
-    //    bgColor = eventColor;
-    //  });
-    //}
-
+  void changeColor() {
+    //Stream warna dijalankan dengan listen
     colorStream.getColors().listen((eventColor) {
       setState(() {
         bgColor = eventColor;
@@ -94,15 +115,17 @@ class _StreamHomePageState extends State<StreamHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(lastNumber.toString(), 
-                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            Text(
+              lastNumber.toString(),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
             ElevatedButton(
               onPressed: () => addRandomNumber(),
               child: const Text('New Random Number'),
-            )
+            ),
           ],
         ),
-      )
+      ),
     );
   }
 }
