@@ -22,6 +22,18 @@
 - **Jelaskan maksud kode langkah 13 sampai 15 tersebut!**
   - Langkah 13 hingga 15 menjelaskan cara menambahkan dan menangani error pada stream. Metode addErrorToSink() digunakan untuk menyisipkan error secara manual ke dalam stream. Kemudian, onError ditambahkan dalam parameter listen() agar error yang terjadi dapat ditangani tanpa menghentikan aplikasi. Langkah ini penting sebagai bagian dari pengelolaan aliran data secara aman dan efektif.
 
+---
+
+## Praktikum 3 - Injeksi data ke streams
+- **Jelaskan maksud kode langkah 1-3 tersebut!**
+  - Langkah-langkah pada praktikum ini menunjukkan bagaimana cara melakukan transformasi data sebelum mencapai UI. Melalui penggunaan StreamTransformer, setiap angka dalam stream diubah menjadi kelipatan 10. Transformasi ini dilakukan untuk memvalidasi, memfilter, atau menyesuaikan data sebelum ditampilkan ke pengguna akhir. 
+- **Capture hasil praktikum Anda berupa GIF dan lampirkan di README.**
+  ![soal 8](https://github.com/user-attachments/assets/60ce510f-e3fa-426c-818c-5487917c1424)
+
+
+  
+
+
 
 
 
