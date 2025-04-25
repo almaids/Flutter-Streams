@@ -39,6 +39,16 @@
   - Langkah ke-8 mengatur ulang fungsi addRandomNumber() agar selaras dengan perubahan arsitektur yang diterapkan.
 - **Capture hasil praktikum Anda berupa GIF dan lampirkan di README.**
   ![soal 9](https://github.com/user-attachments/assets/3cca26d0-c723-4d85-a54b-b3df31568611)
+  
+---
+
+## Praktikum 5 - Multiple stream subscriptions
+- **Jelaskan mengapa error itu bisa terjadi ?**
+  - Error terjadi karena secara default, stream hanya dapat digunakan untuk satu langganan (single subscription). Ketika dilakukan dua pemanggilan listen() terhadap stream yang sama, maka akan muncul error berupa Bad state: Stream has already been listened to.
+- **Jelaskan mengapa hal itu bisa terjadi ?**
+  - Setelah stream diubah menjadi broadcast menggunakan asBroadcastStream(), stream dapat memiliki banyak subscriber secara bersamaan. Hal ini menyebabkan kedua subscriber menerima data yang sama, sehingga tampilan teks bertambah dua kali setiap angka dikirim.
+- **Capture hasil praktikum Anda berupa GIF dan lampirkan di README.**
+  ![soal 10 11](https://github.com/user-attachments/assets/490ecf07-a0d3-430a-93f8-faa26a284787)
 
 
 
