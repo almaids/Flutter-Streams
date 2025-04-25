@@ -47,6 +47,10 @@ class _StreamHomePageState extends State<StreamHomePage> {
       setState(() {
         lastNumber = event;
       });
+    }).onError((error) {
+      setState(() {
+        lastNumber = -1;
+      });
     });
     
     colorStream = ColorStream();

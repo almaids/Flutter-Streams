@@ -32,9 +32,14 @@ class NumberStream {
     Random random = Random();
     int myNum = random.nextInt(10);
     addNumberToSink(myNum);
+    //addError();
   }
 
   void addNumberToSink(int newNumber) {
     controller.sink.add(newNumber);
+  }
+
+  addError(){
+    controller.sink.addError('error');
   }
 }
