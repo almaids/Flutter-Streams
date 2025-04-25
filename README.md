@@ -49,6 +49,18 @@
   - Setelah stream diubah menjadi broadcast menggunakan asBroadcastStream(), stream dapat memiliki banyak subscriber secara bersamaan. Hal ini menyebabkan kedua subscriber menerima data yang sama, sehingga tampilan teks bertambah dua kali setiap angka dikirim.
 - **Capture hasil praktikum Anda berupa GIF dan lampirkan di README.**
   ![soal 10 11](https://github.com/user-attachments/assets/490ecf07-a0d3-430a-93f8-faa26a284787)
+ 
+---
+
+## Praktikum 6 - StreamBuilder
+- **Jelaskan maksud kode pada langkah 3 dan 7 !**
+  - Langkah ke-3 menyiapkan stream yang menghasilkan angka baru setiap detik menggunakan Stream.periodic().
+  - Langkah ke-7 mengimplementasikan StreamBuilder yang akan membangun ulang bagian UI setiap kali stream mengirimkan data baru. Hal ini menciptakan UI yang reaktif dan dinamis terhadap perubahan data.
+- **Capture hasil praktikum Anda berupa GIF dan lampirkan di README.**
+  ![soal 12](https://github.com/user-attachments/assets/8c2fdc3a-51da-4e94-a094-073fe572a867)
+
+
+
 
 
 
