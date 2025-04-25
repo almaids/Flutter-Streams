@@ -58,6 +58,15 @@
   - Langkah ke-7 mengimplementasikan StreamBuilder yang akan membangun ulang bagian UI setiap kali stream mengirimkan data baru. Hal ini menciptakan UI yang reaktif dan dinamis terhadap perubahan data.
 - **Capture hasil praktikum Anda berupa GIF dan lampirkan di README.**
   ![soal 12](https://github.com/user-attachments/assets/8c2fdc3a-51da-4e94-a094-073fe572a867)
+ 
+---
+
+## Praktikum 7 - BLoC Pattern
+- **Jelaskan maksud praktikum ini ! Dimanakah letak konsep pola BLoC-nya ?**
+  - Praktikum ini mengimplementasikan pola arsitektur BLoC (Business Logic Component). Seluruh proses pengelolaan data dilakukan di luar UI, yakni di dalam class RandomNumberBloc, menggunakan StreamController sebagai sarana komunikasi antara logika dan antarmuka. Alur kerja mencakup input event ke sink, pemrosesan logika, lalu hasilnya diteruskan ke UI melalui stream. Pendekatan ini memisahkan logika bisnis dari tampilan, sehingga lebih mudah dalam pengujian dan pengembangan skala besar.
+- **Capture hasil praktikum Anda berupa GIF dan lampirkan di README.**
+  ![soal 13](https://github.com/user-attachments/assets/8cd12321-99ca-42a8-9667-421a82b4bf0b)
+
 
 
 
