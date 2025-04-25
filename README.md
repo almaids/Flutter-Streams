@@ -29,6 +29,17 @@
   - Langkah-langkah pada praktikum ini menunjukkan bagaimana cara melakukan transformasi data sebelum mencapai UI. Melalui penggunaan StreamTransformer, setiap angka dalam stream diubah menjadi kelipatan 10. Transformasi ini dilakukan untuk memvalidasi, memfilter, atau menyesuaikan data sebelum ditampilkan ke pengguna akhir. 
 - **Capture hasil praktikum Anda berupa GIF dan lampirkan di README.**
   ![soal 8](https://github.com/user-attachments/assets/60ce510f-e3fa-426c-818c-5487917c1424)
+  
+---
+
+## Praktikum 4 - Subscribe ke stream events
+- **Jelaskan maksud kode langkah 2, 6 dan 8 tersebut!**
+  - Langkah ke-2 berisi penambahan subscription yang memberikan kontrol lebih baik terhadap stream, termasuk penanganan event onData, onError, dan onDone.
+  - Langkah ke-6 menambahkan fungsi dispose() untuk menghentikan subscription guna mencegah memory leak.
+  - Langkah ke-8 mengatur ulang fungsi addRandomNumber() agar selaras dengan perubahan arsitektur yang diterapkan.
+- **Capture hasil praktikum Anda berupa GIF dan lampirkan di README.**
+  ![soal 9](https://github.com/user-attachments/assets/3cca26d0-c723-4d85-a54b-b3df31568611)
+
 
 
   
