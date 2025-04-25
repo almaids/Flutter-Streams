@@ -11,35 +11,44 @@ class ColorStream {
     Colors.teal,
     Colors.pink,
     Colors.pinkAccent,
-    Color(0xFFF8BBD0), 
-    Color(0xFFD81B60), 
-    Color(0xFFFFC1E3), 
+    Color(0xFFF8BBD0),
+    Color(0xFFD81B60),
+    Color(0xFFFFC1E3),
   ];
 
   Stream<Color> getColors() async* {
     yield* Stream.periodic(
-      const Duration(seconds: 1), (int t){
+      const Duration(seconds: 1),
+      (int t) {
         int index = t % colors.length;
         return colors[index];
-      });
+      },
+    );
   }
 }
 
 class NumberStream {
   final StreamController<int> controller = StreamController<int>();
 
-  void addRandomNumber(){
+  void addRandomNumber() {
     Random random = Random();
     int myNum = random.nextInt(10);
-    addNumberToSink(myNum);
-    //addError();
+    if (!controller.isClosed) {
+      addNumberToSink(myNum);
+    } else {
+      controller.addError('Stream sudah ditutup');
+    }
   }
 
   void addNumberToSink(int newNumber) {
     controller.sink.add(newNumber);
   }
 
-  addError(){
+  void addError() {
     controller.sink.addError('error');
+  }
+
+  void close() {
+    controller.close();
   }
 }
