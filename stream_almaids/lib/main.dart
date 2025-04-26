@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Stream - Almaids',
       theme: ThemeData(
-        primarySwatch: Colors.pink,
+        primarySwatch: Colors.blue,
       ),
       home: const StreamHomePage(),
     );
@@ -32,16 +32,37 @@ class StreamHomePage extends StatefulWidget {
 class _StreamHomePageState extends State<StreamHomePage> {
   Color bgColor = Colors.blueGrey;
   late ColorStream colorStream;
-
   int lastNumber = 0;
-  late StreamController<int> numberStreamController;
+  late StreamController numberStreamController;
   late NumberStream numberStream;
-
-  late StreamTransformer<int, int> transformer;
-
+  late StreamTransformer transformer;
   late StreamSubscription subscription;
   late StreamSubscription subscription2;
   String values = '';
+
+  void changeColor() async {
+    colorStream.getColors().listen((eventColor) {
+      setState(() {
+        bgColor = eventColor;
+      });
+    });
+  }
+
+  void addRandomNumber() {
+    Random random = Random();
+    int myNum = random.nextInt(10);
+    if (!numberStreamController.isClosed) {
+      numberStream.addNumberToSink(myNum);
+    } else {
+      setState(() {
+        lastNumber = -1;
+      });
+    }
+  }
+
+  void stopStream() {
+    numberStreamController.close();
+  }
 
   @override
   void initState() {
@@ -49,13 +70,10 @@ class _StreamHomePageState extends State<StreamHomePage> {
 
     numberStream = NumberStream();
     numberStreamController = numberStream.controller;
+    Stream stream = numberStreamController.stream.asBroadcastStream();
 
-    Stream<int> stream = numberStreamController.stream.asBroadcastStream();
-
-    // Listener utama
     subscription = stream.listen((event) {
       setState(() {
-        //lastNumber = event;
         values += '$event - ';
       });
     });
@@ -73,60 +91,8 @@ class _StreamHomePageState extends State<StreamHomePage> {
     });
 
     subscription.onDone(() {
-      print('onDone was called');
+      print('OnDone was called');
     });
-
-    // Transformer
-    transformer = StreamTransformer<int, int>.fromHandlers(
-      handleData: (value, sink) {
-        sink.add(value * 10);
-      },
-      handleError: (error, trace, sink) {
-        sink.add(-1);
-      },
-      handleDone: (sink) => sink.close(),
-    );
-
-    stream.transform(transformer).listen((event) {
-      setState(() {
-        lastNumber = event;
-      });
-    }).onError((error) {
-      setState(() {
-        lastNumber = -1;
-      });
-    });
-
-    // Warna background berubah otomatis
-    colorStream = ColorStream();
-    changeColor();
-  }
-
-  // Fungsi ganti warna background
-  void changeColor() {
-    colorStream.getColors().listen((eventColor) {
-      setState(() {
-        bgColor = eventColor;
-      });
-    });
-  }
-
-  // Fungsi tambah angka random ke stream
-  void addRandomNumber() {
-    numberStream.addRandomNumber();
-  }
-
-  // Fungsi untuk stop stream
-  void stopStream() {
-    numberStreamController.close();
-    subscription.cancel();
-  }
-
-  @override
-  void dispose() {
-    subscription.cancel();
-    numberStreamController.close();
-    super.dispose();
   }
 
   @override
@@ -135,7 +101,6 @@ class _StreamHomePageState extends State<StreamHomePage> {
       appBar: AppBar(
         title: const Text('Stream - Almaids'),
       ),
-      backgroundColor: bgColor,
       body: SizedBox(
         width: double.infinity,
         child: Column(
@@ -144,16 +109,22 @@ class _StreamHomePageState extends State<StreamHomePage> {
           children: [
             Text(values),
             ElevatedButton(
-              onPressed: () => addRandomNumber(),
-              child: const Text('New Random Number'),
+              onPressed: () => addRandomNumber(), 
+              child: Text('New Random Number'),
             ),
             ElevatedButton(
-              onPressed: () => stopStream(),
-              child: const Text('Stop Subscription'),
-            ),
+              onPressed: () => stopStream(), 
+              child: Text('Stop Subscription'),
+            )
           ],
         ),
-      ),
+      )
     );
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
   }
 }
